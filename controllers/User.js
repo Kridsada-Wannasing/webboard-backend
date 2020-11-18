@@ -34,3 +34,25 @@ exports.login = async (req, res, next) => {
     });
   }
 };
+
+exports.register = async (req, res, next) => {
+  try {
+    const target = await User.findOne({ email: req.body.email });
+
+    if (target) {
+      throw new Error("Username already taken.");
+    }
+
+    const newUser = await User.create(req.body);
+
+    res.status(201).json({
+      status: "success",
+      newUser,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "fail",
+      message: error.message,
+    });
+  }
+};

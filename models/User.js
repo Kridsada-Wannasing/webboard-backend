@@ -17,6 +17,14 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+userSchema.methods.lastLoginAt = () => {
+  this.last_login_at = Date.now();
+};
+
+userSchema.methods.correctPassword = (userPassword, password) => {
+  return bcrypt.compareSync(userPassword, password);
+};
+
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;

@@ -6,6 +6,8 @@ dotenv.config({
   path: "./config.env",
 });
 
+require("./config/User");
+
 process.on("uncaughtException", (err) => {
   console.log("uncaught exception!!!");
   console.log(err.name, err.message);

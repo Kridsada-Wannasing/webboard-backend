@@ -11,10 +11,10 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
+    select: false,
   },
   last_login_at: {
     type: Date,
-    default: Date.now(),
   },
 });
 

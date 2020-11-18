@@ -3,10 +3,10 @@ const jwt = require("jsonwebtoken");
 
 exports.login = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
     const user = await User.findOne({
-      email,
+      username,
     }).select("+password");
 
     if (!user || !(await user.correctPassword(password, user.password))) {
@@ -15,7 +15,7 @@ exports.login = async (req, res, next) => {
 
     const payload = {
       id: user._id,
-      email: user.email,
+      username: user.username,
     };
 
     const token = jwt.sign(payload, process.env.SECRET_OR_KEY, {

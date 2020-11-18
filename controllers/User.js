@@ -37,7 +37,7 @@ exports.login = async (req, res, next) => {
 
 exports.register = async (req, res, next) => {
   try {
-    const target = await User.findOne({ email: req.body.email });
+    const target = await User.findOne({ username: req.body.username });
 
     if (target) {
       throw new Error("Username already taken.");

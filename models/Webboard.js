@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 
 const webBoardSchema = new mongoose.Schema({
+  user_id: {
+    type: String,
+  },
   title: {
     type: String,
   },

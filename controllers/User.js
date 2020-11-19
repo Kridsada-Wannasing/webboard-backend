@@ -5,12 +5,16 @@ exports.login = async (req, res, next) => {
   try {
     const { username, password } = req.body;
 
-    const user = await User.findOne({
-      username,
-    }).select("+password");
+    const user = await User.findOneAndUpdate(
+      {
+        username,
+      },
+      { last_login_at: Date.now() },
+      { new: true }
+    ).select("+password");
 
     if (!user || !(await user.correctPassword(password, user.password))) {
-      throw new Error("Invalid email or password!!!");
+      throw new Error("Invalid username or password!!!");
     }
 
     const payload = {

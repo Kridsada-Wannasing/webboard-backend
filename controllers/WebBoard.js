@@ -44,7 +44,7 @@ exports.getWebBoardById = async (req, res, next) => {
 exports.editWebBoard = async (req, res, next) => {
   try {
     const editWebBoard = await WebBoard.findOneAndUpdate(
-      { id: req.params.id, user_id: req.user.id },
+      { _id: req.params.id, user_id: req.user.id },
       req.body,
       { new: true }
     );

@@ -26,10 +26,6 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-userSchema.methods.lastLoginAt = () => {
-  this.last_login_at = Date.now();
-};
-
 userSchema.methods.correctPassword = (userPassword, password) => {
   return bcrypt.compareSync(userPassword, password);
 };

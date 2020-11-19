@@ -10,8 +10,10 @@ exports.login = async (req, res, next) => {
     }).select("+password");
 
     if (!user || !(await user.correctPassword(password, user.password))) {
-      throw new Error("Invalid email or password!!!");
+      throw new Error("Invalid username or password!!!");
     }
+
+    await user.lastLoginAt();
 
     const payload = {
       id: user._id,

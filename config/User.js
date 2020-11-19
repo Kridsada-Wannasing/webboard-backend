@@ -8,7 +8,7 @@ const options = {
 };
 
 const JWTStrategy = new Strategy(options, async (payload, done) => {
-  const user = await User.findById(payload.payload);
+  const user = await User.findById(payload.id);
 
   if (user) done(null, user);
   else doNotTrack(null, false);

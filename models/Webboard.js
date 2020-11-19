@@ -9,7 +9,6 @@ const webBoardSchema = new mongoose.Schema({
   },
   content: {
     type: String,
-    unique: true,
   },
 });
 

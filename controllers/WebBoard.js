@@ -15,13 +15,13 @@ exports.createWebBoard = async (req, res, next) => {
 exports.editWebBoard = async (req, res, next) => {
   try {
     const editWebBoard = await WebBoard.findOneAndUpdate(
-      { user_id: req.user.id },
+      { id: req.params.id, user_id: req.user.id },
       req.body,
       { new: true }
     );
 
     if (!editWebBoard) {
-      throw new Error("Not found this Web-board");
+      throw new Error("Not found this web-board or is not your web-board");
     }
 
     res.status(200).json({
@@ -29,7 +29,7 @@ exports.editWebBoard = async (req, res, next) => {
       editWebBoard,
     });
   } catch (error) {
-    res.status(404).json({
+    res.status(400).json({
       status: "fail",
       message: error.message,
     });

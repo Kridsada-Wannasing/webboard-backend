@@ -5,7 +5,7 @@ class Validate {
   }
 
   validateEmail() {
-    const emailValidator = /^[^s@]+@[^s@]+.[^s@]+$/;
+    const emailValidator = /\S+@\S+\.\S+/;
     return emailValidator.test(this.credentials);
   }
 

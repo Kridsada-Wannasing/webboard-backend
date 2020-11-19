@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+const Validate = require("../utils/Validate");
 
 exports.login = async (req, res, next) => {
   try {
@@ -41,6 +42,17 @@ exports.login = async (req, res, next) => {
 
 exports.register = async (req, res, next) => {
   try {
+    const { email, password } = req.body;
+
+    const validateEmail = new Validate(email).validateEmail();
+    const validatePassword = new Validate(password).validatePassword();
+
+    if (!validateEmail) {
+      throw new Error("Invalid email.");
+    } else if (!validatePassword) {
+      throw new Error("Invalid password.");
+    }
+
     const target = await User.findOne({ username: req.body.username });
 
     if (target) {

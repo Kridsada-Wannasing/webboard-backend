@@ -11,22 +11,11 @@ const webBoardSchema = new mongoose.Schema({
     type: String,
     unique: true,
   },
-  create_at: {
-    type: Date,
-    default: Date.now(),
-    select: false,
-  },
-  edit_at: {
-    type: Date,
-    default: Date.now(),
-    select: false,
-  },
 });
 
-webBoardSchema.pre("findOneAndUpdate", async function (next) {
-  this.edit_at = Date.now();
-
-  next();
+webBoardSchema.set("timestamps", {
+  createdAt: "create_at",
+  updatedAt: "edit_at",
 });
 
 const WebBoard = mongoose.model("WebBoard", webBoardSchema);

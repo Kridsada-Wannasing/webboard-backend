@@ -64,3 +64,26 @@ exports.editWebBoard = async (req, res, next) => {
     });
   }
 };
+
+exports.deleteWebBoard = async (req, res, next) => {
+  try {
+    const deleteWebBoard = await WebBoard.findOneAndDelete({
+      _id: req.params.id,
+      user_id: req.user.id,
+    });
+
+    if (!deleteWebBoard) {
+      throw new Error("Not found this web-board or is not your web-board");
+    }
+
+    res.status(204).json({
+      status: "success",
+      data: "delete successful!",
+    });
+  } catch (error) {
+    res.status(404).json({
+      status: "success",
+      message: error.message,
+    });
+  }
+};
